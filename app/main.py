@@ -1,6 +1,6 @@
 from flask import Flask, jsonify, request
 
-import inference as n
+import app.inference as n
 
 import os
 

@@ -25,7 +25,7 @@ N_MELS = 64  # Number of mel bands
 # Model Path to best saved model in saved_models directory
 # TODO: Change this to your model path
 MODEL_FILENAME = "VGG_20221119-140809_Tesla V100-SXM3-32GB.pt"
-MODEL_PATH = "/home/zalasyu/Documents/467-CS/MGR/src/models/" + MODEL_FILENAME
+MODEL_PATH = "app/" + MODEL_FILENAME
 print(MODEL_PATH)
 
 
