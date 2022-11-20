@@ -123,7 +123,7 @@ class Oracle:
 
     def __init__(self):
         self.model = VGG()
-        self.model.load_state_dict(torch.load(MODEL_PATH))
+        self.model.load_state_dict(torch.load(MODEL_PATH , map_location=torch.device("cpu")))
         self.model.eval()
         self.transform_input_song = TransformInputSong(
             NUM_SAMPLES, SAMPLE_RATE, N_FFT, HOP_LENGTH, N_MELS
