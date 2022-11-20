@@ -1,4 +1,4 @@
-from cnn import VGG
+import app.cnn as cnn
 import torch
 import torchaudio
 import os
@@ -122,7 +122,7 @@ class Oracle:
     """
 
     def __init__(self):
-        self.model = VGG()
+        self.model = cnn.VGG()
         self.model.load_state_dict(torch.load(MODEL_PATH , map_location=torch.device("cpu")))
         self.model.eval()
         self.transform_input_song = TransformInputSong(
