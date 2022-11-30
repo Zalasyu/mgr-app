@@ -1,4 +1,4 @@
-import app.cnn as cnn
+import app.vgg_net as vgg
 import torch
 import torchaudio
 import os
@@ -24,8 +24,8 @@ N_MELS = 64  # Number of mel bands
 
 # Model Path to best saved model in saved_models directory
 # TODO: Change this to your model path
-MODEL_FILENAME = "VGG_20221119-140809_Tesla V100-SXM3-32GB.pt"
-MODEL_PATH = "app/" + MODEL_FILENAME
+MODEL_FILENAME = "VGG13_11_23_2022-17_10_Tesla V100-DGXS-32GB.pth"
+MODEL_PATH = "/home/zalasyu/Documents/467-CS/mgr-app-1/app/VGG13_11_23_2022-17_10_Tesla V100-DGXS-32GB.pth"
 print(MODEL_PATH)
 
 
@@ -122,7 +122,7 @@ class Oracle:
     """
 
     def __init__(self):
-        self.model = cnn.VGG()
+        self.model = vgg.VGG_Net(architecture="VGG13")
         self.model.load_state_dict(torch.load(MODEL_PATH , map_location=torch.device("cpu")))
         self.model.eval()
         self.transform_input_song = TransformInputSong(
@@ -140,9 +140,12 @@ class Oracle:
         _, predicted = torch.max(outputs.data, 1)
         # Show Confidence for each class
         confidence = torch.nn.functional.softmax(outputs, dim=1)[0] * 100
-        print(f"Confidence: {confidence.tolist()}")
+        # Round the confidence to 2 decimal places
+        confidence = [round(c.item(), 2) for c in confidence]
+        
+        print(f"Confidence: {confidence}")
 
-        mapped = self._map_class_to_confidence(confidence.tolist())
+        mapped = self._map_class_to_confidence(confidence)
 
         return mapped
 
@@ -164,7 +167,7 @@ if __name__ == "__main__":
     # SPECIFY THE PATH TO THE MODEL WITH THE BEST ACCURACY
     MODEL_NAME = ""
 
-    model = VGG()
+    model = vgg.VGG_Net()
     # Load the weights with the best validation accuracy
     state_dict = torch.load(MODEL_PATH)
     model.load_state_dict(state_dict)
