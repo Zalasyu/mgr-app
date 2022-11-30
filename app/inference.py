@@ -41,7 +41,6 @@ class TransformInputSong:
     # object x of class X can now be called as a function like so: x()
     def __call__(self, input):
         waveform, sample_rate = torchaudio.load(input)
-        print(waveform.shape)
         waveform = self._resample(waveform, sample_rate)
         waveform = self._mixdown_to_mono(waveform)
         waveform = self._cut(waveform)
@@ -143,7 +142,6 @@ class Oracle:
         # Round the confidence to 2 decimal places
         confidence = [round(c.item(), 2) for c in confidence]
         
-        print(f"Confidence: {confidence}")
 
         mapped = self._map_class_to_confidence(confidence)
 

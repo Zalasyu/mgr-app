@@ -1,4 +1,5 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, render_template
+import json
 
 import app.inference as n
 
@@ -18,9 +19,14 @@ def allowed_file(filename):
 
 # API Endpoint: /predict
 
+@app.route('/')
+def main():
+    return render_template('index.html')
+
 
 @app.route('/predict', methods=['POST'])
 def predict():
+    print(f"request.files: {request.files}")
     if request.method == "POST":
         # Get the audio file from the request
         audio_file = request.files["file"]
@@ -33,7 +39,6 @@ def predict():
         if not allowed_file(audio_file.filename):
             return jsonify({"error": "File type not supported."})
 
-        # try:
         audio_file = request.files['file']
 
         save_path = os.path.join(os.getcwd(), 'temp.wav')
@@ -43,8 +48,14 @@ def predict():
 
         TheOracle = n.Oracle()
         predictions = TheOracle.get_predictions(audio_file)
-        data = {"Confidence Interval": predictions}
-        return jsonify(data)
+        
+        # Make predictions pretty
+        predictions = {k: str(v) + "%" for k, v in predictions.items()}
 
-        # except:
-        #   return jsonify({"error": "File could not be read."})
+        # Convert to JSON
+        predictions = json.dumps(predictions, indent=4)
+        
+        
+        print(f"predictions: {predictions}")
+        return render_template('predictions.html', confidence=predictions)
+
