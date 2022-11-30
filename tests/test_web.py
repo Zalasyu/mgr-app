@@ -54,3 +54,14 @@ resp = requests.post('http://localhost:5000/predict',
 
 print("Rock Example")
 print(resp.text)
+
+resp = requests.post('http://localhost:5000/predict',
+                     files={'file': open('music_of_the_night_opera.mp3', 'rb')})
+print("Opera Example")
+print(resp.text)
+
+resp = requests.post('http://localhost:5000/predict',
+                     files={'file': open('think_of_me_opera.mp3', 'rb')})
+
+print("Opera Example")
+print(resp.text)
