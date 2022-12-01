@@ -48,6 +48,9 @@ def predict():
 
         TheOracle = n.Oracle()
         predictions = TheOracle.get_predictions(audio_file)
+
+        # Descenting order
+        predictions = dict(sorted(predictions.items(), key=lambda item: item[1], reverse=True))
         
         # Make predictions pretty
         predictions = {k: str(v) + "%" for k, v in predictions.items()}

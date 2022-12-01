@@ -26,7 +26,7 @@ N_MELS = 64  # Number of mel bands
 # TODO: Change this to your model path
 MODEL_FILENAME = "VGG13_11_23_2022-17_10_Tesla_V100-DGXS-32GB.pth"
 print(os.getcwd())
-MODEL_PATH = os.getcwd() + "/app/VGG13_11_23_2022-17_10_Tesla V100-DGXS-32GB.pth"
+MODEL_PATH = os.getcwd() + "/" + MODEL_FILENAME
 print(MODEL_PATH)
 
 
