@@ -24,8 +24,9 @@ N_MELS = 64  # Number of mel bands
 
 # Model Path to best saved model in saved_models directory
 # TODO: Change this to your model path
-MODEL_FILENAME = "VGG13_11_23_2022-17_10_Tesla V100-DGXS-32GB.pth"
-MODEL_PATH = "/home/zalasyu/Documents/467-CS/mgr-app-1/app/VGG13_11_23_2022-17_10_Tesla V100-DGXS-32GB.pth"
+MODEL_FILENAME = "VGG13_11_23_2022-17_10_Tesla_V100-DGXS-32GB.pth"
+print(os.getcwd())
+MODEL_PATH = os.getcwd() + "/app/VGG13_11_23_2022-17_10_Tesla V100-DGXS-32GB.pth"
 print(MODEL_PATH)
 
 
